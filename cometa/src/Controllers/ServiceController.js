@@ -5,7 +5,7 @@ module.exports = {
   async index(req,res){
     const {page=1}=req.query;
     const services=await Service.paginate({},{page,limit:5});
-    return res.json({status:true,services});
+    return res.json(services);
   },
   async create(req,res){
     let {client,clientNumber,dateInitial,hourInitial,horimeterInitial,dateFinal,hourFinal,horimeterFinal} = req.body;
