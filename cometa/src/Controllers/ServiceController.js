@@ -3,8 +3,7 @@ const { estimatedDocumentCount } = require('../models/Service');
 const Service = require('../models/Service');
 module.exports = {
   async index(req,res){
-    const {page=1}=req.query;
-    const services=await Service.paginate({},{page,limit:5});
+    const services=await Service.find();
     return res.json(services);
   },
   async create(req,res){
