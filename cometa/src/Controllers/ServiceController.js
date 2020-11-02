@@ -11,8 +11,28 @@ module.exports = {
     const services = await Service.find({status});
     return res.json(services);
   },
-  async create(req,res){
-    let {client,clientNumber,dateInitial,hourInitial,horimeterInitial,dateFinal,hourFinal,horimeterFinal} = req.body;
+  async start(req,res){
+    let {client,clientNumber,dateInitial,hourInitial,horimeterInitial} = req.body;
+    const service = await Service.create({
+      client,
+      clientNumber,
+      dateInitial,
+      hourInitial,
+      horimeterInitial,
+      status:false
+    });
+    return res.json({status:true,msg:'Serviço iniciado com sucesso!'})
+  },
+  async getOne(request,response){
+    let{_id}=request.params;
+    const service=await Service.findOne({_id});
+    return response.json(service);
+  },
+  async stop(req,res){
+    let {_id,client,clientNumber,dateInitial,hourInitial,horimeterInitial,dateFinal,hourFinal,horimeterFinal} = req.body;
+    
+    const delService = await Service.deleteOne({_id});
+    let totalHours=(horimeterFinal-horimeterInitial);
     let valueTotal=(horimeterFinal-horimeterInitial)*130;
     const service = await Service.create({
       client,
@@ -23,24 +43,10 @@ module.exports = {
       dateFinal,
       hourFinal,
       horimeterFinal,
-      totalHours:(horimeterFinal-horimeterInitial),
+      totalHours,
       valueTotal,
-      status:false
+      status:true
     });
     return res.json({status:true,msg:'Serviço iniciado com sucesso!'})
   },
-  async getOne(request,response){
-    let{_id}=request.params;
-    const service=await Service.findOne({_id});
-    return response.json(service);
-  },
-  async edit(req,res){
-    const {_id,client,clientNumber,dateInitial,hourInitial,horimeterInitial,dateFinal,hourFinal,horimeterFinal} = req.body;
-    try {
-      const service = await Service.updateOne({_id},{$push:{client,clientNumber,dateInitial,hourInitial,horimeterInitial,dateFinal,hourFinal,horimeterFinal}});
-      return res.json({status:true,msg:'Dados alterados com sucesso!'});
-    } catch (error) {
-      return res.json({status:false,msg:'Falha de comunicação com o servidor!'});
-    }
-  }
 }

@@ -7,11 +7,26 @@ const ServiceSchema = new mongoose.Schema({
   dateInitial: String,
   hourInitial: String,
   horimeterInitial: Number,
-  dateFinal: String,
-  hourFinal: String,
-  horimeterFinal: Number,
-  totalHours: Number,
-  valueTotal: Number,
+  dateFinal:{
+    type:String,
+    default:null
+  },
+  hourFinal: {
+    type:String,
+    default:null
+  },
+  horimeterFinal: {
+    type:Number,
+    default:0
+  },
+  totalHours: {
+    type:Number,
+    default:0
+  },
+  valueTotal: {
+    type:Number,
+    default:0
+  },
   status: Boolean,
   createdAt:{
     type: Date,

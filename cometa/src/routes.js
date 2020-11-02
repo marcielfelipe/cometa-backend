@@ -9,10 +9,11 @@ const FileController = require('./Controllers/FileController');
 const routes=Router();
 
 
-routes.post("/service",ServiceController.create);
+routes.post("/service",ServiceController.start);
+routes.post("/",ServiceController.stop);
 routes.get("/",ServiceController.index);
 routes.get("/:_id",ServiceController.getOne);
-routes.put("/",ServiceController.edit);
+
 routes.get("/service/:status",ServiceController.serviceStatus);
 
 
