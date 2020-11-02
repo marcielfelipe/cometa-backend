@@ -12,7 +12,7 @@ const ServiceSchema = new mongoose.Schema({
   horimeterFinal: Number,
   totalHours: Number,
   valueTotal: Number,
-  status: String,
+  status: Boolean,
   createdAt:{
     type: Date,
     default: Date.now,

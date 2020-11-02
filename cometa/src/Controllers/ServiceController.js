@@ -7,13 +7,11 @@ module.exports = {
     return res.json(services);
   },
   async getOpen(req,res){
-    let status="Em aberto";
-    const services = await Service.find({status});
+    const services = await Service.find({status:false});
     return res.json(services);
   },
-  async getOk(req,res){
-    let status="Concluído";
-    const services = await Service.find({status});
+  async getClose(req,res){
+    const services = await Service.find({status:true});
     return res.json(services);
   },
   async create(req,res){
@@ -30,13 +28,13 @@ module.exports = {
       horimeterFinal,
       totalHours:(horimeterFinal-horimeterInitial),
       valueTotal,
-      status:'Em aberto'
+      status:true
     });
     return res.json({status:true,service})
   },
   async getOne(request,response){
     let{_id}=request.params;
-    const service=await Service.findOne({_id:_id});
+    const service=await Service.findOne({_id});
     return response.json(service);
   },
   async edit(req,res){
