@@ -6,8 +6,13 @@ module.exports = {
     const services=await Service.find();
     return res.json(services);
   },
-  async getStatus(req,res){
-    let {status}=req.body;
+  async getOpen(req,res){
+    let status="Em aberto";
+    const services = await Service.find({status});
+    return res.json(services);
+  },
+  async getOk(req,res){
+    let status="Concluído";
     const services = await Service.find({status});
     return res.json(services);
   },
