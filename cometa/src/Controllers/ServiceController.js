@@ -6,6 +6,11 @@ module.exports = {
     const services=await Service.find();
     return res.json(services);
   },
+  async getOpen(req,res){
+    let {status}=req.body;
+    const services = await Service.find({status});
+    return res.json(services);
+  },
   async create(req,res){
     let {client,clientNumber,dateInitial,hourInitial,horimeterInitial,dateFinal,hourFinal,horimeterFinal} = req.body;
     let valueTotal=(horimeterFinal-horimeterInitial)*130;
@@ -19,7 +24,8 @@ module.exports = {
       hourFinal,
       horimeterFinal,
       totalHours:(horimeterFinal-horimeterInitial),
-      valueTotal
+      valueTotal,
+      status:'Em aberto'
     });
     return res.json({status:true,service})
   },
