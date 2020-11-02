@@ -6,12 +6,9 @@ module.exports = {
     const services=await Service.find();
     return res.json(services);
   },
-  async getOpen(req,res){
-    const services = await Service.find({status:false});
-    return res.json(services);
-  },
-  async getClose(req,res){
-    const services = await Service.find({status:true});
+  async serviceStatus(req,res){
+    let {status} = req.params;
+    const services = await Service.find({status});
     return res.json(services);
   },
   async create(req,res){
@@ -28,9 +25,9 @@ module.exports = {
       horimeterFinal,
       totalHours:(horimeterFinal-horimeterInitial),
       valueTotal,
-      status:true
+      status:false
     });
-    return res.json({status:true,service})
+    return res.json({status:true,msg:'Serviço iniciado com sucesso!'})
   },
   async getOne(request,response){
     let{_id}=request.params;
