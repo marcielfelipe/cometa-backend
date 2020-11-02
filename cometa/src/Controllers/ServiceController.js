@@ -37,7 +37,7 @@ module.exports = {
   async getOne(request,response){
     let{_id}=request.params;
     const service=await Service.findOne({_id:_id});
-    return response.json({status:true,service});
+    return response.json(service);
   },
   async edit(req,res){
     const {_id,client,clientNumber,dateInitial,hourInitial,horimeterInitial,dateFinal,hourFinal,horimeterFinal} = req.body;

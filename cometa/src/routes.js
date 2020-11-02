@@ -11,6 +11,7 @@ const routes=Router();
 
 routes.post("/service",ServiceController.create);
 routes.get("/",ServiceController.index);
+routes.get("/:_id",ServiceController.getOne);
 routes.put("/",ServiceController.edit);
 routes.get("/open",ServiceController.getOpen);
 routes.get("/ok",ServiceController.getOk);
