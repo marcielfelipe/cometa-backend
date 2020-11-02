@@ -4,10 +4,10 @@ const mongoosePaginate= require('mongoose-paginate');
 const ServiceSchema = new mongoose.Schema({
   client: String,
   clientNumber: String,
-  dateInitial: Date,
+  dateInitial: String,
   hourInitial: Number,
   horimeterInitial: Number,
-  dateFinal: Date,
+  dateFinal: String,
   hourFinal: Number,
   horimeterFinal: Number,
   totalHours: Number,
