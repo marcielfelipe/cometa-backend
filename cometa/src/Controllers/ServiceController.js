@@ -23,30 +23,23 @@ module.exports = {
     });
     return res.json({status:true,msg:'Serviço iniciado com sucesso!'})
   },
-  async getOne(request,response){
-    let{_id}=request.params;
+  async getOne(req,res){
+    let{_id}=req.params;
     const service=await Service.findOne({_id});
-    return response.json(service);
+    return res.json(service);
   },
   async stop(req,res){
-    let {_id,client,clientNumber,dateInitial,hourInitial,horimeterInitial,dateFinal,hourFinal,horimeterFinal} = req.body;
+    let {_id,dateFinal,hourFinal,horimeterFinal} = req.body;
+    try {
+      const service=await Service.update({_id},{$push:{
+        dateFinal,
+        hourFinal,
+        horimeterFinal
+      }})
+    } catch (error) {
+      return res.json({status:false,msg:'Erro de comunicação com o servidor!'})
+    }
     
-    const delService = await Service.deleteOne({_id});
-    let totalHours=(horimeterFinal-horimeterInitial);
-    let valueTotal=(horimeterFinal-horimeterInitial)*130;
-    const service = await Service.create({
-      client,
-      clientNumber,
-      dateInitial,
-      hourInitial,
-      horimeterInitial,
-      dateFinal,
-      hourFinal,
-      horimeterFinal,
-      totalHours,
-      valueTotal,
-      status:true
-    });
-    return res.json({status:true,msg:'Serviço iniciado com sucesso!'})
+    return res.json({status:true,msg:'Serviço concluído!'})
   },
 }
