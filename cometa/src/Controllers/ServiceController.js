@@ -31,7 +31,7 @@ module.exports = {
   async stop(req,res){
     let {_id,dateFinal,hourFinal,horimeterFinal} = req.body;
     try {
-      const service=await Service.update({_id},{$push:{
+      const service=await Service.updateOne({_id},{$set:{
         dateFinal,
         hourFinal,
         horimeterFinal
