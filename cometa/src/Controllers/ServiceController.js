@@ -29,12 +29,16 @@ module.exports = {
     return res.json(service);
   },
   async stop(req,res){
-    let {_id,dateFinal,hourFinal,horimeterFinal} = req.body;
+    let {_id,dateFinal,hourFinal,horimeterFinal,totalHours,valueTotal} = req.body;
+
     try {
       const service=await Service.updateOne({_id},{$set:{
         dateFinal,
         hourFinal,
-        horimeterFinal
+        horimeterFinal,
+        totalHours,
+        valueTotal,
+        status:true
       }})
     } catch (error) {
       return res.json({status:false,msg:'Erro de comunicação com o servidor!'})
