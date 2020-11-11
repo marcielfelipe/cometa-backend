@@ -10,7 +10,7 @@ const routes=Router();
 
 
 routes.post("/service",ServiceController.start);
-routes.post("/",ServiceController.stop);
+routes.put("/",ServiceController.stop);
 routes.get("/",ServiceController.index);
 routes.get("/:_id",ServiceController.getOne);
 
